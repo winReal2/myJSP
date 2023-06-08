@@ -11,13 +11,24 @@
 	<h2>1. 클라이언트와 서버의 환경정보 읽기</h2>
 	<!-- method를 지정하지 않은 경우는 모두 get방식으로 호출됩니다.
 		 아무런 설정도 하지 않으면 기본이 get 방식 -->
+		 
 	<!-- 404 : 페이지를 찾을 수 없음 
 		 서버에 파일이 없는 경우, 또는 경로가 일치하지 않는 경우
-		 URL경로를 확인해봐야함!!!!!!!!(현재나의 위치가 내장객체안에 있어)-->
+		 URL경로를 확인해봐야함!!!!!!!!(현재나의 위치가 내장객체안에 있어)
+		 
+		 url로 호출 : 무조건 get방식으로 호출
+		 http://  : 프로토콜(통신규약)
+		 www.naver.com : 도메인을 이용해 서버를 찾아감
+		 				(도메인으로 ip/port알 수 있고 ip, port로 웹서버를 찾아감)
+		 경로 : 파일경로, 매핑정보
+		 나와 같은 선상에 있는 웹인포를 호출-->
 	 <!-- requestWebInfo.jsp를 서버에 요청 / 파라메터들 eng=hello&han=안녕 -->
 	<p><a href="requestWebInfo.jsp?eng=hello&han=안녕">GET방식 요청</a></p>
 	
-	<!-- 폼객체를 만들고 파라메터를 넘기는 방법 -->
+	<!-- 
+		폼객체를 만들고 파라메터를 넘기는 방법 
+		
+	-->
 	<form action="requestWebInfo.jsp" method="post">
 		영어 : <input type="text" name="eng" value="Bye"><br>
 		한글 : <input type="text" name="han" value="잘 가"><br>
@@ -25,7 +36,7 @@
 	</form>
 	
 	<h1>2. 클라이언트의 요청 매개변수 읽기</h1>
-	<form method="post" action="requestParameter.jsp">
+	<form action="requestParameter.jsp" method="post" >
 	<!-- 다양한 input태그를 사용하여 서버에 값을 전달해봅시다! -->
 		아이디 : 
         <input type='text' name='id' value='' ><br>
@@ -42,5 +53,12 @@
 	</form>
 	
 	<!-- requestMain 요청(서버에 요청하는 방법) / 응답은 requestParameter에서! -->
+	
+	<h2>3. HTTP 요청헤더 정보 읽기</h2>
+	<a href = "requestHeader.jsp">요청 헤더정보 읽기</a>
+	
+	
+	
+	
 </body>
 </html>

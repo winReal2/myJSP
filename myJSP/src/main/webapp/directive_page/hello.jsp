@@ -30,6 +30,6 @@ jsp : 동적인 페이지를 작성하기 위해서 java라는 언어를 사용!
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello</h1>
+	<h1>안녕하세요!</h1>
 </body>
 </html>

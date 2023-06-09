@@ -1,3 +1,4 @@
+<%@page import="utils.CookieManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     
@@ -38,10 +39,15 @@
                 	<!-- 로그인 성공: 로그인 박스를 보여주지 않음.
                 					abc님 환영합니다. 출력 -->
                 	<%
+                		//쿠키에 저장된 아이디가 있다면 아이디를 텍스트 필드에 value값으로 출력
+	                	String userId = CookieManager.readCookie(request, "userid");
+                		//input에 가서 value값 userId넣어주기
+                	
                 		//로그인 실패시 메세지 처리
                 		String loginErr = request.getParameter("loginErr");
                 		if("Y".equals(loginErr)){
-                			out.print("<script>alert('아이디/비밀번호를 확인해주세요!!')</script>");
+                			out.print("<script>'아이디/비밀번호를 확인해주세요!!'</script>");
+                			//out.print("<script>alert('아이디/비밀번호를 확인해주세요!!')</script>");
                 		}
                 	%>				
 	
@@ -62,6 +68,7 @@
                 		<%= name + "님 환영합니다."%>
                 		
              			<button onclick="location.href='logout.jsp'">로그아웃</button>
+             			
              	<%		
                 	} else {
                 %>
@@ -70,18 +77,26 @@
            		<form action="loginAction.jsp" method="post">			
                     <div class='loginbox'>
                         <div id='login'>
-                            <input type="text" name="userid" id="userpw" placeholder='ID를 입력해주세요.'>
+                            <input type="text" name="userid" id="userpw" placeholder='ID를 입력해주세요.' value="<%=userId%>">
                             <input type="password" name="userpw" id="userpw" placeholder='PW를 입력해주세요.'>
                         </div>
                         <div id='button'>
-                        <input type="submit" value="로그인">
+                        <input type="submit" value="로그인"><br>
                         </div>
                     </div>
+                    
                     <div id='info'>
+                    	<!-- 체크박스는 선택되었을 때만 서버에 넘어갑니다! 선택안하고 값을 출력해보면 null이 출력 -->
+                    	<!-- < % = !userId.equals("") ? "checked" : "" %> 
+                    		userId가 ""(빈문자열)이 아니면 checked, 맞으면 빈문자열 반환
+                    	-->
+                        <input type="checkBox" name="save_check" value="Y" <%= !userId.equals("") ? "checked" : "" %>> 아이디 저장<br>
+                
                         <a href="">회원가입</a>
                         <a href="">ID찾기</a>
                         <a href="">PW찾기</a>
                     </div>
+               
                 </form>	
 				<%} %>
                 </div>

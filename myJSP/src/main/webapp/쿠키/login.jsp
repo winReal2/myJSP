@@ -43,8 +43,7 @@ String loginErr = request.getParameter("loginErr");
 			out.print("<h1>" + name + "님 환영합니다.</h1>");
 		}else {
 	%>
-	<!-- 체크박스가 체크되어서 로그인버튼이 눌러졌따면 폼이 서브밋되는 페이지에서 저장할지말지 결정
-	체크박스가 체크되어 있을때만 -->
+	<!-- 체크박스가 체크되어서 로그인버튼이 눌러졌다면 폼이 서브밋되는 페이지에서 저장할지말지 결정 -->
     <div class='loginbox'>
         <div id='login'>
             <input type="text" name="userid" id="userpw" placeholder='ID를 입력해주세요.' required="required" value="<%=userId%>"><br>

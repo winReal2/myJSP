@@ -81,7 +81,7 @@
                             <input type="password" name="userpw" id="userpw" placeholder='PW를 입력해주세요.'>
                         </div>
                         <div id='button'>
-                        <input type="submit" value="로그인"><br>
+                       		 <input type="submit" value="로그인"><br>
                         </div>
                     </div>
                     
@@ -90,7 +90,7 @@
                     	<!-- < % = !userId.equals("") ? "checked" : "" %> 
                     		userId가 ""(빈문자열)이 아니면 checked, 맞으면 빈문자열 반환
                     	-->
-                        <input type="checkBox" name="save_check" value="Y" <%= !userId.equals("") ? "checked" : "" %>> 아이디 저장<br>
+                        <input type="checkBox" name="save_check" value="Y" <%= !userId.equals("") ? "checked" : ""%>> 아이디 저장<br>
                 
                         <a href="">회원가입</a>
                         <a href="">ID찾기</a>

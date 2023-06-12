@@ -1,0 +1,58 @@
+--웹앱 최상단에 두고 팀원간 공유!
+
+--회원 테이블 생성
+CREATE TABLE MEMBER(
+    ID VARCHAR2(10) PRIMARY KEY,
+    PASS VARCHAR2(10) NOT NULL,
+    NAME VARCHAR2(30) NOT NULL,
+    REGIDATE DATE DEFAULT SYSDATE NOT NULL
+);
+
+comment on table member is '회원';
+COMMENT ON COLUMN MEMBER.ID IS '아이디';
+COMMENT ON COLUMN MEMBER.PASS IS '패스워드';
+COMMENT ON COLUMN MEMBER.NAME IS '이름';
+COMMENT ON COLUMN MEMBER.REGIDATE IS '가입날짜';
+
+DROP TABLE MEMBER;
+--====================================================
+--게시판 테이블 생성
+CREATE TABLE BOARD(
+    NUM NUMBER PRIMARY KEY,
+    TITLE VARCHAR2(200) NOT NULL,
+    CONTENT VARCHAR2(2000) NOT NULL,
+    ID VARCHAR2(10) NOT NULL,
+    POSTDATE DATE DEFAULT SYSDATE NOT NULL,
+    VISITCOUNT NUMBER(6) 
+);
+-- 외래키 추가
+ALTER TABLE BOARD
+ADD CONSTRAINT BOARD_MEM_FK FOREIGN KEY(ID)
+REFERENCES MEMBER(ID);
+
+comment on table board is '게시판';
+COMMENT ON COLUMN BOARD.NUM IS '일련번호';
+COMMENT ON COLUMN BOARD.TITLE IS '게시물의 제목';
+COMMENT ON COLUMN BOARD.CONTENT IS '내용';
+COMMENT ON COLUMN BOARD.ID IS '작성자의 아이디';
+COMMENT ON COLUMN BOARD.POSTDATE IS '작성일';
+COMMENT ON COLUMN BOARD.VISITCOUNT IS '조회수';
+
+--=================================================
+--시퀀스 생성
+create sequence seq_board_num
+    increment by 1
+    start with 1
+    minvalue 1
+    nomaxvalue 
+    nocycle 
+    nocache; 
+    
+-- 더미데이터 입력
+INSERT INTO MEMBER(ID, PASS, NAME) VALUES ('MUSTHAVE', '1234', '머스트해브');
+INSERT INTO BOARD (NUM, TITLE, CONTENT, ID, POSTDATE, VISITCOUNT)
+    VALUES (SEQ_BOARD_NUM.NEXTVAL, '제목1입니다', '내용1입니다', 'MUSTHAVE', SYSDATE, 0);
+
+
+COMMIT;
+

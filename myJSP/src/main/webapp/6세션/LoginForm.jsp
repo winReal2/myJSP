@@ -36,7 +36,10 @@
 		 }
 	 %>
 		<h2><%=name %> + 님 환영합니다.</h2>
- 	<%} %>
+ 	<%
+ 		response.sendRedirect("board.jsp");
+	} 
+ 	%>
 	
 </body>
 </html>

@@ -30,9 +30,6 @@
 
 	int totalCnt = dao.getTotalCnt(searchField, searchWord);
 	
-
-	
-	
 %>
 
 <jsp:include page="Link.jsp"/>

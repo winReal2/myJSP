@@ -19,6 +19,7 @@
 		location.href = "LoginForm.jsp";
 	</script>
 <%	
+	return;
 	}
 %>
 </body>

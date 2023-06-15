@@ -74,7 +74,7 @@
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td colspan="3" style="width:90%"><%=board.getContent() %></td>
+			<td colspan="3" style="width:90%; height:100px"><%=board.getContent().replace("\r\n", "<br/>") %></td>
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
@@ -83,8 +83,8 @@
 				// 로그인한 아이디와 글쓴이가 같으면 수정, 삭제 버튼 활성화
 				if(session.getAttribute("UserId") != null && board.getId().equals(session.getAttribute("UserId"))) {
 				%>
-				<button type="button" onclick="location.href='Edit.jap?num=<%=board.getNum()%>'">수정하기</button>
-				<button type="button" onclick="location.href='DeleteProcess.jsp?num=<%=board.getNum()%>'">삭제하기</button>
+				<button type="button" onclick="location.href='Edit.jsp?num=<%=board.getNum()%>'">수정하기</button>
+				<button type="button" onclick="deletePost()">삭제하기</button> <!-- 함수실행 -->
 				<% } %>
 			</td>
 		<tr>

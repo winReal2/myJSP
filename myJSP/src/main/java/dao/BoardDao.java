@@ -107,6 +107,7 @@ public class BoardDao {
 				sql		+= "where "+searchField+" like '%"+searchWord+"%' ";				
 			}
 			sql		+= "order by num desc";
+			
 		
 		//검색조건 추가
 		try (Connection conn = DBConnPool.getConnection();
@@ -200,7 +201,58 @@ public class BoardDao {
 		return res;
 	}
 	
+	
+	//board객체에 담아서 매개변수 자리에 작성 (String title, String content 이런거 X)
+	/**
+	 * 게시물 수정하기
+	 * @param board
+	 * @return
+	 */
+	public int update(Board board) {
+		int res=0;
+		String sql="update board set title = ?, content = ? where num = ?";
+		
+		try (Connection conn = DBConnPool.getConnection();
+				PreparedStatement psmt = conn.prepareStatement(sql);){
+			
+			psmt.setString(1, board.getTitle());
+			psmt.setString(2, board.getContent());
+			psmt.setString(3, board.getNum());
+			
+			res = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		return res;
+	}
+	
+	
+	public int delete(Board board) {
+		int res=0;
+		String sql="delete from board where num=?";
+		
+		try (Connection conn = DBConnPool.getConnection();
+				PreparedStatement psmt =  conn.prepareStatement(sql);){
+			
+			psmt.setString(1, board.getNum());
+			
+			res = psmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+		
+	}
+	
 }
+
 
 
 

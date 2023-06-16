@@ -56,9 +56,17 @@
         <tr>
             <td colspan="4" align="center">
             
-                <button type="button">수정하기</button>
+                <button type="button" onclick="location.href='Edit.jsp?num=<%=request.getParameter("num")%>'">수정하기</button>
                 <button type="button">삭제하기</button> 
-                <button type="button" onclick="location.href='List.jsp'">목록 보기</button>
+                <%
+                String pageNo = "";
+                //확인용 => out.print("pageNo : "+ request.getParameter("pageNo"));
+                if(request.getParameter("pageNo") != null) {
+                	pageNo = request.getParameter("pageNo");
+                }
+                %>
+                <!-- pageNo=< %=request.getParameter("pageNo")%> 로 목록돌아가면 첫화면이 아닌 눌렀던 화면으로 back-->
+                <button type="button" onclick="location.href='List.jsp?pageNo=<%=request.getParameter("pageNo")%>'">목록 보기</button>
             </td>
         </tr>
     </table>

@@ -1,3 +1,5 @@
+<%@page import="dao.BoardDao"%>
+<%@page import="dto.PageDto"%>
 <%@page import="dto.Criteria"%>
 <%@page import="dto.Board"%>
 <%@page import="java.util.List"%>
@@ -15,6 +17,7 @@
 	//검색조건
 	String searchField = request.getParameter("searchField");
 	String searchWord = request.getParameter("searchWord");
+	
 	searchWord = searchWord == null? "": searchWord;  //삼항연산자로 검색창에 null안나오게 함
 	
 	//페이지 번호
@@ -24,19 +27,23 @@
 	Criteria criteria = new Criteria(searchField, searchWord, pageNo);
 	
 	NewBoardDao dao = new NewBoardDao();
-	List<Board> list = dao.getList(criteria);
-	//List<Board> list = dao.getListPage(criteria);
-	
-	
+	//List<Board> list = dao.getList(criteria);  // 검색내용(게시물)이 다나옴 그래서 getListPage로 해줘야 내가 설정한 게시물 수만큼 나옴
+	List<Board> list = dao.getListPage(criteria);
+	int totalCnt = dao.getTotalCnt(criteria);
+
+//	out.print("총건수 : " + totalCnt);
 %>
 
+총건수 : <%=totalCnt %>
 
 <body>
 <%@include file="../6세션/Link.jsp" %>
     <h2>NEW</h2>
     <h2>목록 보기(List)</h2>
     <!-- 검색폼 --> 
-    <form method="get">  
+    <!-- name="searchForm" => 폼을 전송하는데 이름을 붙여줘야 빨리 찾을 수 있어서 이름 붙여줌 -->
+    <form method="get" name="searchForm">  
+    <input type="text" name="pageNo" value="<%=criteria.getPageNo()%>">
     <table border="1" width="90%">
     <tr>
         <td align="center">
@@ -77,7 +84,8 @@
         <tr align="center">
             <td><%=board.getNum() %></td>  <!--게시물 번호-->
             <td align="left">  <!--제목(+ 하이퍼링크)-->
-                <a href="View.jsp?num=<%=board.getNum() %>"> <%=board.getTitle() %></a> 
+            <!-- 목록으로 돌아갈때 페이지 번호를 함꼐 가지고 가야 첫화면이 안나옴 (&pageNo=< %=criteria.getPageNo()%>) <= 이부분 -->
+                <a href="View.jsp?num=<%=board.getNum()%> &pageNo=<%=criteria.getPageNo()%>"> <%=board.getTitle() %></a> 
             </td>
             <td align="center"><%=board.getId() %></td>          <!--작성자 아이디-->
             <td align="center"><%=board.getVisitcount() %></td>  <!--조회수-->
@@ -100,5 +108,28 @@
         </tr>
     </table>
     <%} %>
+    
+    
+<!-- 페이지블럭 생성 시작 
+	[해야할 것]
+	- 총 건수 (totalCnt) 조회 > PageDto만들어보기
+	- 쿼리수정
+	- getListPage 호출
+	- form의 이름을 searchForm으로 지정하고 pageNo필드를 생성
+-->
+<%
+	//페이징 처리를 위해 pageDto생성
+	PageDto pageDto = new PageDto(totalCnt, criteria);
+%>	
+<table border="1" width="90%">
+	<tr>
+		<td align="center">   
+			<!-- 변수들이 충돌로 오류! 페이지를 복사해서 그래서 페이지에 있는 것들 지워줌 -->
+			<%@include file="../9페이지/PageNavi.jsp" %>
+		</td>
+	</tr>	
+</table>
+<!-- 페이지블럭 생성 끝 -->
+    
 </body>
 </html>

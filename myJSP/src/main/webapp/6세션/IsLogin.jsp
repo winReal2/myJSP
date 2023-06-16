@@ -16,7 +16,7 @@
 %>		
 	<script>
 		alert("로그인 후 이용가능한 메뉴입니다.");
-		location.href = "LoginForm.jsp";
+		location.href = "/myJSP/6세션/LoginForm.jsp";
 	</script>
 <%	
 	return;

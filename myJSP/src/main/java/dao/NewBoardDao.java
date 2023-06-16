@@ -185,8 +185,48 @@ public class NewBoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	
+	/**
+	 * 페이징 처리를 위해 필수적인 정보!
+	 * 검색정보를 얻기 위해서 criteria객체 가져옴
+	 * @param criteria
+	 * @return
+	 */
+	public int getTotalCnt(Criteria criteria) {
+		int res = 0;
+		
+		String sql = "select count(*) from board ";
+		//검색어가 null이 아닌 경우라는 조건 달아주기
+		if(criteria.getSearchWord() != null && !"".equals(criteria.getSearchWord())) {
+			//제목을 포함하는! %제목%
+			sql += "where " +criteria.getSearchField() +" = '%"+criteria.getSearchWord()+"%'";
+		}
+					
+		try (Connection conn = DBConnPool.getConnection();
+				PreparedStatement psmt = conn.prepareStatement(sql);){
+				
+				ResultSet rs = psmt.executeQuery();
+				
+				if(rs.next()) {
+					res = rs.getInt(1);  //쿼리 실행문의 첫 행을 가져옴
+				}
+				
+				rs.close();
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	
+	
+	
+	
+	
 }
 
 

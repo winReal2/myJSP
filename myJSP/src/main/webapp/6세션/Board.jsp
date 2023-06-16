@@ -1,3 +1,4 @@
+<%@page import="dto.Criteria"%>
 <%@page import="dto.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.BoardDao"%>
@@ -13,8 +14,13 @@
 <%
 //[추가희망] : 세션유지시간에 맞춘 시간표시(연장기능(클릭하면 시간 초기화 등))
 
+	//검색조건 
 	String searchField = request.getParameter("searchField");
 	String searchWord = request.getParameter("searchWord");
+	//편하게 처리하기 위해 Criteria 생성자에서 수정함!(생성자의 역할 : 초기화) (null처리, String 처리)
+	String pageNo = request.getParameter("pageNo");
+	
+	//검색어가 null인 경우 빈문자열로 치환
 	searchWord = searchWord == null? "": searchWord;  //삼항연산자로 검색창에 null안나오게 함
 	// if(searchWord == null){
 	//		searchWord = "";
@@ -25,10 +31,18 @@
 	//out.print("검색어 : " + searchWord + "<br>");
 	//out.print("검색필드 : " + searchField);
 	
-	BoardDao dao = new BoardDao();
-	List<Board> boardList = dao.getList(searchField, searchWord); // **getList() 아무것도 안넣으니 오류발생! 파라메터 넣어주기!
+	// 검색조건 객체로 생성
+	Criteria criteria = new Criteria(searchField, searchWord, pageNo);
 
-	int totalCnt = dao.getTotalCnt(searchField, searchWord);
+	// 게시판 DB 작업 - DAO 생성
+	BoardDao dao = new BoardDao();
+	//List<Board> boardList = dao.getList(searchField, searchWord); // **getList() 아무것도 안넣으니 오류발생! 파라메터 넣어주기!
+	
+	//리스트 조회
+	List<Board> boardList = dao.getListPage(criteria); 
+	
+	//총 건수 조회
+	int totalCnt = dao.getTotalCnt(criteria);	//만들어놓은 criteria 객체를 이용
 	
 %>
 
@@ -39,7 +53,8 @@
 총건수 : <%=totalCnt %>
 
 <!-- 검색폼 -->
-<form>
+<form name="searchForm">
+<input type="text" name="pageNo" value="<%=criteria.getPageNo()%>"> <!-- 나중에 숨김처리하면되니까 확인용으로 나둠 -->
 <table border="1" width="90%">
 	<tr>
 		<td align="center">
@@ -48,7 +63,7 @@
 				<option value="content" <%="content".equals(searchField)? "selected" : ""%>>내용</option>
 				<option value="content||title">제목+내용</option>
 			</select>
-			<!-- 검색창에 계속해서 출력하고 싶을 때 => value="< % =searchWord%>" -->
+			<!-- 검색창에 계속해서 출력하고 싶을 때 => value="< % =searchWord%>"  null나오면 삼항연산자로 null처리리리-->
 			<input type="text" name="searchWord" value="<%=searchWord%>">
 			<input type="submit" value="검색하기">
 		</td>
@@ -106,12 +121,19 @@
 </table>
 <%} %>
 
-
-
-
-
-
-
+<!-- 페이지블럭 생성 시작 -->
+<%
+	//원래 생성하는 부분은 상단에 위치하지만 헷갈릴까봐 아래에 작성
+	PageDto pageDto = new PageDto(totalCnt, criteria);
+%>
+<table border="1" width="90%">
+	<tr>
+		<td align="center">
+			<%@include file = "PageNavi.jsp" %>
+		</td>
+	</tr>	
+</table>
+<!-- 페이지블럭 생성 끝 -->
 
 
 

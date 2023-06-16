@@ -26,7 +26,7 @@
 	if(res > 0 && request.getParameter("title") != null && request.getParameter("content") != null) {
 		JSPFunction.alertLocation("입력되었습니다.", "List.jsp", out);
 	} else {
-		JSPFunction.alertBack("입력 중 오류가 발생하였습니다.\n 관리자에게 문의해주세요.", out);
+		JSPFunction.alertBack("입력 중 오류가 발생하였습니다.\n\n 관리자에게 문의해주세요.", out);
 	}
 %>
 	

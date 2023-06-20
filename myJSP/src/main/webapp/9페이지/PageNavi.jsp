@@ -2,6 +2,7 @@
 <%@page import="dto.PageDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,51 +23,26 @@
 		다른페이지에서도 공통으로 사용할 수 있음
 -->
 
-<%
-/*
-	// 매개변수 : 총게시물수, 검색조건(페이지번호, 페이지당 게시물수, 검색어,검색조건)
-	int pageNo = request.getParameter("pageNo")==null ? 1 : Integer.parseInt(request.getParameter("pageNo"));
-			
-	//totalCnt, pageNo를 세팅해줘야함!!!
-	int totalCnt = 300;
-	Criteria criteria = new Criteria(pageNo); //2 : 페이지 번호 받아서 넣어줌 Criteria.java가보면 이미 생성되어있는 다른 조건들
-	
-	PageDto pageDto = new PageDto(totalCnt, criteria);
-*/
-	//어쩔땐 출력, 또 어쩔땐 출력하지 않아야함
-	if(pageDto.isPrev()){
-		//시작페이지번호가 1보다 큰 경우 이전버튼을 출력
-		out.print("<a href='List.jsp?pageNo="+(pageDto.getStartNo()-1)+"'>");
-		out.print("<");
-		out.print(" </a>");
-	}
-	//먼저 반복문 이용해서 페이지번호
-	for (int i = pageDto.getStartNo(); i <= pageDto.getEndNo(); i++){
-		out.print("<a href='List.jsp?pageNo="+i+"'>");
-		out.print(i);
-		out.print(" </a>");
-	}
-	if(pageDto.isNext()){
-		//마지막 번호가 게시물의 끝페이지 번호와 일치하지 않으면 
-		out.print("<a href='List.jsp?pageNo="+(pageDto.getEndNo()+1)+"'>");
-		out.print(">");
-		out.print(" </a>");
-	}
-%>
+
+
+<c:set var="pageDto" value="<%=pageDto %>"/>
+
+<!-- 이전버튼 -->
+<c:if test="${pageDto.prev }">
+	<a href='List.jsp?pageNo=${pageDto.startNo-1 }'>이전</a>
+</c:if>
+
+<!-- 페이지번호 출력 -->
+<c:forEach begin="${pageDto.startNo }" end="${pageDto.endNo }" var="i">
+	<a href='List.jsp?pageNo=${i }' > ${i }</a>
+</c:forEach>
+
+
+<!-- 다음버튼 -->
+<c:if test="${pageDto.next }">
+	<a href='List.jsp?pageNo=${pageDto.endNo+1 }'>다음</a>
+</c:if>
 
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

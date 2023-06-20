@@ -165,7 +165,8 @@ public class BoardDao {
 				board = new Board();
 				board.setNum(rs.getString("num"));
 				board.setTitle(rs.getString("title"));
-				board.setContent(rs.getString("content"));
+				//줄바꿈처리를 서버에서 해서 사용 (View_el.jsp에서 사용)
+				board.setContent(rs.getString("content").replace("\r\n", "<br/>"));
 				board.setId(rs.getString("id"));
 				board.setPostdate(rs.getString("postdate"));
 				board.setVisitcount(rs.getString("visitcount"));

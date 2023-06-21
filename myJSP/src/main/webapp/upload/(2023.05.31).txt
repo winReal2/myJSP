@@ -1,0 +1,43 @@
+https://apis.data.go.kr/B551011/GoCamping/locationBasedList?  (여기까지 url)
+
+네임속성  =   value값
+serviceKey=G9Jrwyt4kK616SoR09ah0P%2F3EFkRpvatTejIo%2F8sCTCx2NdIxCGsqCR3xvBC%2FCaKhpLGiiNMsFg7%2BimBBj7CTg%3D%3D
+&numOfRows=10
+&pageNo=1
+&MobileOS=ETC
+&MobileApp=AppTest
+&mapX=128.6142847
+&mapY=36.0345423
+&radius=2000
+&_type=json
+
+
+한페이지 내 폼
+
+서브밋을 한다는건
+(폼이 가진 요소들) 필드안의 값들을 가지고 서버로 간다는 것!
+name이 중요! 네임속성과 밸류값을 가지고간다!
+
+폼을 정의할때 네임과 벨류 속성이 중요하다!
+
+네임밸류에 담아서 
+파라메터를 넘겨주는 이유(여러가지 정보를 다가져오는게 아니기때문에
+필요한 정보만 가져오기 위해 ㅠㅏ라메터 형식으로 값들을 넣어줌
+
+
+폼태그에다 네임과 벨류값을 연결해서 가지고 오는 것 공부함
+
+
+일반 인증키  일반 인증키
+(Encoding)   (Decoding)	
+url에서 사용못하는 문자열들을 유니코드로 변환!
+
+api호출 = url
+오류발생하면 
+먼저 개발자도구에서 네트워크 탭 확인(네트워크 > 헤더 > 요청 url)해보고 
+헤더 url주소를 메모장에 복사해서 비교! (틀린값을 찾으면 됨)
+
+
+
+
+

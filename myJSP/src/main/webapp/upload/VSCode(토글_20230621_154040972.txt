@@ -1,0 +1,14 @@
+토글기능!  
+<script>
+    view.addEventListener('click',function(){
+      detail.classList.toggle('hidden')
+    });
+  </script>
+
+
+[단축키]
+ctrl + ,  : 설정   (emmet(검색 > lang 변경가능)
+
+마우스 오버 / 이미지슬라이드(캐러셀)
+
+오탈자 꼼꼼히 확인!

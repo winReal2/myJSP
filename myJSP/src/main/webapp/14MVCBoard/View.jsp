@@ -13,7 +13,7 @@
 	<c:forEach items="${list }" var="row" varStatus="loop">
 	<tr>
 		<th>일련번호</th>
-		<td>${row.idx }</td>
+		<td>${row.idx }</td>ff
 		<th>작성일</th>
 		<td>${row.postdate }</td>
 	</tr>

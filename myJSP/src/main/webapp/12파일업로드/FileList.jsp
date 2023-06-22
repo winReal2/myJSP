@@ -18,18 +18,12 @@
 -->
 <a href="FileUpload.jsp">파일 등록하기</a>
 
-<%
-	
-	FileDao dao = new FileDao();
-	//임포트시 패키지 확인!
-	List<FileDto> list = dao.getFileList();
-	//리스트 총건수를 확인!
-	out.print("총건수 : " + list.size());
-	
-%>
+
+out.print("req : " + request.getAttribute("list")
+
 	<!-- 자바빈을 표현언어에서 사용하기 위해 변수로 선언 -->
 	<!-- JSTL을 사용한 방법 -->
-	<c:set var="fileList" value="<%=list %>"/>
+	<c:set var="fileList" value="${requestScope.list  }"/>
 	
 	
  <!-- 게시물 목록 테이블(표) --> 

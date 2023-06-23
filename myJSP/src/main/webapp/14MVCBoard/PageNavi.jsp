@@ -21,8 +21,12 @@
 </script>
 
 <!-- 영역에 저장 -->
+<!-- pageDto만 저장해두면 가져다 사용할 수 있다! -->
 <c:set var="pageDto" value="${pageDto }"/>
 
+
+<c:if test="${pageDto.prev }">
+</c:if>
 
 
 <%

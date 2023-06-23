@@ -302,28 +302,5 @@ public class BoardDao {
 		
 		return boardList;
 	}
-	
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

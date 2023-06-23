@@ -10,38 +10,60 @@
 <h2>MVC 모델2 게시판</h2>
 
 <table border="1" width="90%">
-	<c:forEach items="${list }" var="row" varStatus="loop">
-	<tr>
-		<th>일련번호</th>
-		<td>${row.idx }</td>ff
-		<th>작성일</th>
-		<td>${row.postdate }</td>
-	</tr>
-	<tr>
-		<th>제목</th>
-		<td>${row.title }</td>
-		<th>작성자 이름</th>
-		<td>${row.name }</td>	
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td>${row.content }</td>
-	</tr>
-	<tr>
-		<th>파일명</th>
-		<td>${row.ofile }</td>
-        <td>
-  		    <a href="" >다운로드</a>
-      	</td>
-	</tr>
-	<tr>
-		<th>비밀번호</th>
-		<td>${row.pass }</td>
-		<th>저장된 파일명</th>
-		<td>${row.sfile }</td>	
-	</tr>
+<table border="1" width="90%">
+    <colgroup>
+        <col width="15%"/> <col width="35%"/>
+        <col width="15%"/> <col width="*"/>
+    </colgroup>
 
-	</c:forEach>
+    <!-- 게시글 정보 -->
+    <tr>
+        <td>번호</td> <td>${ dto.idx }</td>
+        <td>작성자</td> <td>${ dto.name }</td>
+    </tr>
+    <tr>
+        <td>작성일</td> <td>${ dto.postdate }</td>
+        <td>조회수</td> <td>${ dto.visitcount }</td>
+    </tr>
+    <tr>
+        <td>제목</td>
+        <td colspan="3">${ dto.title }</td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td colspan="3" height="100">${ dto.content }</td>
+    </tr>
+
+    <!-- 첨부파일 -->
+    <tr>
+        <td>첨부파일</td>
+        <td>
+            <c:if test="${ not empty dto.ofile }">
+            ${ dto.ofile }
+            <a href="../mvcboard/download.do?ofile=${ dto.ofile }&sfile=${ dto.sfile }&idx=${ dto.idx }">
+                [다운로드]
+            </a>
+            </c:if>
+        </td>
+         <td>다운로드수</td>
+        <td>${ dto.downcount }</td>
+    </tr>
+
+    <!-- 하단 메뉴(버튼) -->
+    <tr>
+        <td colspan="4" align="center">
+        	<!-- mode, idx 값을 저장해야한다 -->
+            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=edit&idx=${ param.idx }';">
+                수정하기
+            </button>
+            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=delete&idx=${ param.idx }';">
+                삭제하기
+            </button>
+            <button type="button" onclick="location.href='../mvcboard/list.do';">
+                목록 바로가기
+            </button>
+        </td>
+    </tr>
 </table>
 
 </body>

@@ -1,6 +1,8 @@
 package model2.mvcboard;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class View
+ * Servlet implementation class EditController
  */
-@WebServlet("/mvcboard/view.do")
-public class ViewController extends HttpServlet {
+@WebServlet("/mvcboard/edit.do")
+public class EditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewController() {
+    public EditController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,23 +28,23 @@ public class ViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 게시물 조회
+		//dao를 이용하여 1건의 게시물을 조회 후 포워딩
 		MVCBoardDao dao = new MVCBoardDao();
 		MVCBoardDto dto = dao.selectOne(request.getParameter("idx"));
-		// 조회된 게시물 저장 (request영역)
+		
+		//request영역에 저장
 		request.setAttribute("dto", dto);
-		// View.jsp페이지로 포워딩
-		request.getRequestDispatcher("../14MVCBoard/View.jsp")
-											.forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		//jsp파일로 포워딩
+		request.getRequestDispatcher("../14MVCBoard/Edit.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+
 	}
 
 }
